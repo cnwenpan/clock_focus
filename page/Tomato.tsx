@@ -3,30 +3,44 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import * as ScreenOrientation from "expo-screen-orientation";
 import moment from "moment";
 
-let timer;
+let timer:any
 
 export default class Tomato extends React.Component {
 
 
     state = {
         timeText: 1620491400000,
-        tip:''
+        tip:'',
+        rest:false
     }
 
     componentDidMount() {
         ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
         timer = setInterval(() => {
-            const {timeText,tip} = this.state;
-            if(timeText<=1620489600000){
+            const {timeText,rest} = this.state;
+            if(timeText<=1620489600000&&!rest){
                 this.setState({
                     timeText:1620490200000,
-                    tip:tip==='休息'?'':'休息'
+                    rest:true,
+                    tip:'休息一下吧~'
+                })
+            }else if(timeText<=1620489600000&&rest){
+                this.setState({
+                    timeText:1620491400000,
+                    rest:false,
+                    tip:''
+                })
+            }else{
+                this.setState({
+                    timeText:timeText-1000
                 })
             }
-            this.setState({
-                timeText:timeText-1000
-            })
+
         }, 1000)
+    }
+
+    componentWillUnmount() {
+        clearInterval(timer)
     }
 
     render() {
@@ -34,7 +48,7 @@ export default class Tomato extends React.Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.time}>{moment(timeText).format('mm:ss')}</Text>
-                <Text style={{color:'#ffffff'}}>{tip}</Text>
+                <Text style={{color:'#ffffff',fontSize:40}}>{tip}</Text>
             </View>
         );
     }
