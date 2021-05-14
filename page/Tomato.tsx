@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import * as ScreenOrientation from "expo-screen-orientation";
 import moment from "moment";
+import {TimeShow} from "../components/TimeShow";
 
 let timer:any
 
@@ -10,7 +11,7 @@ export default class Tomato extends React.Component {
 
     state = {
         timeText: 1620491400000,
-        tip:'',
+        tip:'集中注意力！',
         rest:false
     }
 
@@ -28,7 +29,7 @@ export default class Tomato extends React.Component {
                 this.setState({
                     timeText:1620491400000,
                     rest:false,
-                    tip:''
+                    tip:'集中注意力！'
                 })
             }else{
                 this.setState({
@@ -47,8 +48,8 @@ export default class Tomato extends React.Component {
         const {timeText,tip} = this.state;
         return (
             <View style={styles.container}>
-                <Text style={styles.time}>{moment(timeText).format('mm:ss')}</Text>
-                <Text style={{color:'#ffffff',fontSize:40}}>{tip}</Text>
+                <TimeShow value={moment(timeText).format('mm:ss')} />
+                <Text style={{color:'#ffffff',fontSize:20}}>{tip}</Text>
             </View>
         );
     }
@@ -57,14 +58,16 @@ export default class Tomato extends React.Component {
 const styles=StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor: '#1E1C1C',
+        paddingTop:20,
         alignItems: 'center',
         justifyContent: 'center',
-        position: 'relative'
+        position: 'relative',
+        zIndex:10,
     },
     time:{
         color: '#ffffff',
         fontSize: 128,
         textAlign: 'center',
+        fontWeight:'bold'
     }
 })

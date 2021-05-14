@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import moment from 'moment'
+import {TimeShow} from "../components/TimeShow";
 
 
 let timer;
@@ -25,8 +26,8 @@ export default class Clock extends React.Component {
         const {timeText} = this.state;
         return (
             <View style={styles.container}>
-                <Text style={styles.time}>{moment(timeText).format('HH:mm:ss')}</Text>
-                <Text style={{color:'#ffffff'}}>{moment(new Date()).format('DD/MMM dddd')}</Text>
+                <TimeShow value={moment(timeText).format('HH:mm:ss')} />
+                <Text style={{color:'#ffffff',fontSize:20,fontWeight:'bold'}}>{moment(new Date()).format('DD-MMM dddd')}</Text>
             </View>
         );
     }
@@ -35,10 +36,11 @@ export default class Clock extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#1E1C1C',
+        paddingTop:20,
         alignItems: 'center',
         justifyContent: 'center',
-        position: 'relative'
+        position: 'relative',
+        zIndex:10,
     },
     time: {
         color: '#ffffff',
