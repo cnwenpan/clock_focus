@@ -1,33 +1,42 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import * as ScreenOrientation from 'expo-screen-orientation';
 import moment from 'moment'
 import {TimeShow} from "../components/TimeShow";
 
 
-let timer;
+let timer: any;
 
 export default class Clock extends React.Component {
 
     state = {
-        timeText: new Date()
+        initTime: new Date().getTime(),
+        count: 0
     }
 
     componentDidMount() {
-        ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
+
         timer = setInterval(() => {
+            let {count} = this.state;
             this.setState({
-                timeText: new Date()
+                count: count + 1
             })
         }, 1000)
     }
 
+    componentWillUnmount() {
+        clearInterval(timer)
+    }
+
     render() {
-        const {timeText} = this.state;
+        const {initTime, count} = this.state;
         return (
             <View style={styles.container}>
-                <TimeShow value={moment(timeText).format('HH:mm:ss')} />
-                <Text style={{color:'#ffffff',fontSize:20,fontWeight:'bold'}}>{moment(new Date()).format('DD-MMM dddd')}</Text>
+                <TimeShow value={moment(initTime + (count * 1000)).format('HH:mm:ss')}/>
+                <Text style={{
+                    color: '#ffffff',
+                    fontSize: 20,
+                    fontWeight: 'bold'
+                }}>{moment(initTime).format('DD-MMM dddd')}</Text>
             </View>
         );
     }
@@ -36,11 +45,11 @@ export default class Clock extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop:20,
+        paddingTop: 20,
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
-        zIndex:10,
+        zIndex: 10,
     },
     time: {
         color: '#ffffff',

@@ -22,7 +22,6 @@ const request = async ({url, method, data}: RequestConfig) => {
                 resolve(json)
             })
             .catch(e => {
-                Alert.alert(e.toString())
                 console.log(e)
             })
     })

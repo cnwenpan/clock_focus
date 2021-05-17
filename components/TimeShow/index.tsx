@@ -12,13 +12,13 @@ export class TimeShow extends Component<any> {
                     if (item === ':') {
                         return (
                             <View key={index} style={styles.colon}>
-                                <View style={{position: 'absolute', top: -24}}>
-                                    <Text style={{color: '#ffffff', fontSize: 120}}>:</Text>
+                                <View style={{height:120}}>
+                                    <Text style={{color: '#ffffff', fontSize: 120,lineHeight:120}}>:</Text>
                                 </View>
                             </View>
                         )
                     } else {
-                        return <View style={styles.num}>
+                        return <View key={index} style={styles.num}>
                             <View style={styles.grayBg} />
                             <Text style={styles.font}>{item}</Text>
                         </View>
@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     colon: {
         width: 30,
         height: 130,
+        lineHeight:120,
         textAlign: 'right',
         position: "relative"
     },
@@ -69,7 +70,8 @@ const styles = StyleSheet.create({
     font: {
         color: '#ffffff',
         fontSize: 100,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        lineHeight:120,
     }
 })
 

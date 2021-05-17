@@ -1,6 +1,5 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import * as ScreenOrientation from "expo-screen-orientation";
 import moment from "moment";
 import {TimeShow} from "../components/TimeShow";
 
@@ -16,7 +15,6 @@ export default class Tomato extends React.Component {
     }
 
     componentDidMount() {
-        ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT);
         timer = setInterval(() => {
             const {timeText,rest} = this.state;
             if(timeText<=1620489600000&&!rest){
