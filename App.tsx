@@ -1,8 +1,8 @@
-import {StatusBar} from 'expo-status-bar';
 import React from 'react';
-import {StyleSheet, Text, View, Image, ActivityIndicator} from 'react-native';
+import {StyleSheet, Text, View, Image, ActivityIndicator,StatusBar} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler'
 import * as ScreenOrientation from 'expo-screen-orientation';
+import {  activateKeepAwake, deactivateKeepAwake } from 'expo-keep-awake';
 import Clock from './page/Clock'
 import Tomato from './page/Tomato'
 import {unsplash} from './utils'
@@ -32,6 +32,7 @@ export default class App extends React.Component {
 
     async componentDidMount() {
         await ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE_RIGHT)
+        activateKeepAwake()
         this.unsplash = new unsplash()
         await this.handleChangeBg()
 
@@ -75,6 +76,7 @@ export default class App extends React.Component {
         const {page, bg = '', progress} = this.state;
         return (
             <View style={styles.container}>
+                <StatusBar hidden />
                 <ActivityIndicator
                     style={
                         {
@@ -167,7 +169,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        zIndex: 999,
+        zIndex: 998,
     },
     iconContent: {}
 })

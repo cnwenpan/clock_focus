@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import moment from 'moment'
 import {TimeShow} from "../components/TimeShow";
 
@@ -31,6 +31,7 @@ export default class Clock extends React.Component {
         const {initTime, count} = this.state;
         return (
             <View style={styles.container}>
+
                 <TimeShow value={moment(initTime + (count * 1000)).format('HH:mm:ss')}/>
                 <Text style={{
                     color: '#ffffff',
